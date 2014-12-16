@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+	<head>
+	
+		<title></title>
+ 
+		<meta charset="utf-8" />
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+			
+		<style type="text/css">
+			body{
+			
+				font-family: "Times New Roman", Georgia, Serif;
+				
+			}
+			#box{
+				width: 200px;
+				height: 200px;
+				right: 200px;
+				top: 150px;
+				background-color: black;
+				display: none ;
+				
+			}
+			#yourTime{
+				font-weight: bold;
+				color: green;
+			}
+		
+		</style>
+ 
+	</head>
+ 
+	<body>
+		<h1>Test your reaction...</h1>
+		<p> Click on boxes as much as you can! </p>
+		<p> your current time is <span id="yourTime">0.0</span></p>
+		<div id="box"></div>
+		<script type="text/javascript">
+			var clicked,created;
+			
+			function randomColorGenerator(){
+				
+				var hex= "0123456789ABCDEF".split("");
+				var color="#";
+				
+				for(var i=0;i<6;++i){
+					color += hex[Math.round(Math.random()*15)]; 
+				}
+				return color;
+				
+			}
+			
+			
+			var pos = document.getElementById("box");
+			function makeBox(){
+				var rn = Math.random();
+				rn= rn*1000;
+				Math.floor(rn);
+				setTimeout(function(){
+					if(Math.random()>0.5){
+						document.getElementById("box").style.borderRadius="100px";
+					}else{
+						document.getElementById("box").style.borderRadius= "0px";
+					}
+					document.getElementById("box").style.backgroundColor= randomColorGenerator();
+					var xpos=(Math.floor(Math.random()*1400) );
+					var ypos=(Math.floor(Math.random()*500) );
+					pos.style.position="absolute";
+					pos.style.top= ypos+'px';
+					pos.style.right= xpos+'px';
+					document.getElementById("box").style.display = "block";
+					created= Date.now();
+				},rn);
+				
+			}
+			document.getElementById("box").onclick= function(){
+				clicked= Date.now();
+				this.style.display="none";
+				reactionTime=(clicked-created)/1000;
+				document.getElementById("yourTime").innerHTML= reactionTime;
+				makeBox();
+				
+			}
+			
+			makeBox();
+			
+		</script>
+ 
+	</body>
+
+ 
+ </html>
